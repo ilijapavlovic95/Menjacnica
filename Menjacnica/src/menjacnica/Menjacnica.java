@@ -52,31 +52,44 @@ public class Menjacnica implements MenjacnicaInterfejs{
 	@Override
 	public void dodajKurs(String sifraValute, double prodajni, double kupovni, double srednji,
 			GregorianCalendar datum) {
-	
+		Kurs k = new Kurs();
+		k.setProdajni(prodajni);
+		k.setKupovni(kupovni);
+		k.setSrednji(srednji);
+		k.setDatum(datum);
+		
 		for (int i = 0; i < valute.size(); i++) {
-			if(valute.get(i).getSifra().equals(sifraValute)){
-				for (int j = 0; j < valute.get(i).getKursevi().size(); j++) {
-					Kurs k = valute.get(i).getKursevi().get(j);
-					if(k == null){
-						k.setProdajni(prodajni);
-						k.setKupovni(kupovni);
-						k.setSrednji(srednji);
-						k.setDatum(datum);
-					}
-				}
-			}
-				
+			if(valute.get(i).getSifra().equals(sifraValute))
+				valute.get(i).getKursevi().add(k);
 		}
 	}
 
 	@Override
 	public void obrisiKurs(String sifraValute, GregorianCalendar datum) {
-		
+		for (int i = 0; i < valute.size(); i++) {
+			if(valute.get(i).getSifra().equals(sifraValute)){
+				for (int j = 0; j < valute.get(i).getKursevi().size(); j++) {
+					Kurs pom = valute.get(i).getKursevi().get(j);
+					if(pom.getDatum().equals(datum))
+						valute.get(i).getKursevi().remove(pom);
+				}
+			}
+		}
 	}
 
 	@Override
 	public Kurs pronadjiKurs(String sifraValute, GregorianCalendar datum) {
-		return null;
+		Kurs k = new Kurs();
+		for (int i = 0; i < valute.size(); i++) {
+			if(valute.get(i).getSifra().equals(sifraValute)){
+				for (int j = 0; j < valute.get(i).getKursevi().size(); j++) {
+					Kurs pom = valute.get(i).getKursevi().get(j);
+					if(pom.getDatum().equals(datum))
+						k = pom;
+				}
+			}
+		}
+		return k;
 	}
 	
 	
