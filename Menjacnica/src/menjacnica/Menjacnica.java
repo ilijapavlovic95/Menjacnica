@@ -11,6 +11,8 @@ public class Menjacnica {
 	}
 
 	public void setValute(LinkedList<Valuta> valute) {
+		if(valute == null)
+			throw new RuntimeException("Greska pri unosu.");
 		this.valute = valute;
 	}
 
